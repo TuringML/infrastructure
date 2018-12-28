@@ -24,6 +24,8 @@ Each subfolder contains a dedicated README with the installation instructions.
    - ZooKeeper
  - Superset
    - MySQL
+ - Redis
+ - Flink / Storm / Spark / Samza
 
 With these services we thrive to have following functionalities:
 
