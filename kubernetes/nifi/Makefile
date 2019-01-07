@@ -1,3 +1,18 @@
+include zookeeper/Makefile nifi/Makefile
 
+.PHONY: all
 all:
-	@echo "Go to the folder specified, global install not supported"
+	ENV_WORK_DIR=${PWD}/zookeeper/ $(MAKE) create-zookeeper
+	ENV_WORK_DIR=${PWD}/nifi/ $(MAKE) create-nifi
+
+.PHONY: delete
+delete:
+	ENV_WORK_DIR=${PWD}/nifi/ $(MAKE) delete-nifi
+	ENV_WORK_DIR=${PWD}/zookeeper/ $(MAKE) delete-zookeeper
+	$(MAKE) clean
+
+# Remove all Released persistent volumes
+# TODO: make it in Makefile, this is ridiculous
+.PHONY: clean
+clean:
+	exec ./clean.sh

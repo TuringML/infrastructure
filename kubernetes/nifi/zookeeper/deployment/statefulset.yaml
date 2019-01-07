@@ -75,7 +75,7 @@ spec:
   - metadata:
       name: datadir
     spec:
-      storageClassName: "hostpath"
+      storageClassName: "gp2"
       accessModes: [ "ReadWriteOnce" ]
       resources:
         requests:

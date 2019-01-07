@@ -1,11 +1,13 @@
-all:
-	kubectl create ns zookeeper
-	kubectl create -f deployment/poddisruptionbudget.yaml --namespace zookeeper
-	kubectl create -f deployment/service.yaml --namespace zookeeper
-	kubectl create -f deployment/statefulset.yaml --namespace zookeeper
+.PHONY: create-zookeeper
+create-zookeeper:
+	kubectl create ns nifi-zk
+	kubectl create -f ${ENV_WORK_DIR}deployment/poddisruptionbudget.yaml --namespace nifi-zk
+	kubectl create -f ${ENV_WORK_DIR}deployment/service.yaml --namespace nifi-zk
+	kubectl create -f ${ENV_WORK_DIR}deployment/statefulset.yaml --namespace nifi-zk
 
-delete:
-	kubectl delete -f deployment/poddisruptionbudget.yaml --namespace zookeeper
-	kubectl delete -f deployment/service.yaml --namespace zookeeper
-	kubectl delete -f deployment/statefulset.yaml --namespace zookeeper
-	kubectl delete ns zookeeper
+.PHONY: delete-zookeeper
+delete-zookeeper:
+	kubectl delete -f ${ENV_WORK_DIR}deployment/poddisruptionbudget.yaml --namespace nifi-zk
+	kubectl delete -f ${ENV_WORK_DIR}deployment/service.yaml --namespace nifi-zk
+	kubectl delete -f ${ENV_WORK_DIR}deployment/statefulset.yaml --namespace nifi-zk
+	kubectl delete ns nifi-zk
