@@ -9,6 +9,8 @@ intelligence.
 ## Repo purpose
 This repo should contain a single click deployment with all settings needed for
 
+## Prerequisites
+
 ## Plain instalments
 Each subfolder contains a dedicated README with the installation instructions.
 
@@ -26,6 +28,7 @@ Each subfolder contains a dedicated README with the installation instructions.
  - Superset
    - MySQL
  - Redis
+ - Heapster
  - Vault
  - Grafana / Cadvisor
  - API
