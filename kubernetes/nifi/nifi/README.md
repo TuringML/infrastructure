@@ -11,8 +11,8 @@ running in the namespace zookeeper (three nodes referenced is optimal)
 - Requires [kubernetes](https://kubernetes.io/) Minikube or DC/OS version
 running and kubectl installed
 
-- Requires an image for [NiFi](https://hub.docker.com/r/bjornmooijekind/nifi/) could
-either be pulled directly `docker pull bjornmooijekind/nifi:1.8.0` or build.
+- Requires an image for [NiFi](https://hub.docker.com/r/turingml/nifi/) could
+either be pulled directly `docker pull turingml/nifi:1.8.0` or build.
 
 ## Deploy
 Please use the Makefile in order to deploy the cluster on your kubernetes

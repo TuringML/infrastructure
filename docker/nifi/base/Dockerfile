@@ -1,6 +1,6 @@
 FROM       alpine
 
-MAINTAINER Bjorn Mooijekind <bjmooijekind@gmail.com>
+MAINTAINER Turing ML <turingml@gmail.com>
 
 ARG        DIST_MIRROR=http://archive.apache.org/dist/nifi
 ARG        VERSION=1.8.0

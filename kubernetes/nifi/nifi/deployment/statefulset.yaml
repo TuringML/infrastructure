@@ -30,7 +30,7 @@ spec:
       containers:
       - name: nifi
         imagePullPolicy: Always
-        image: "bjornmooijekind/nifi:1.8.0"
+        image: "turingml/nifi:1.8.0"
         ports:
           - containerPort: 8080
           - containerPort: 8081

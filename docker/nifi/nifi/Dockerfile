@@ -1,5 +1,5 @@
-FROM       bjornmooijekind/nifi-base:1.8.0
-MAINTAINER Bjorn Mooijekind <bjmooijekind@gmail.com>
+FROM       turingml/nifi-base:1.8.0
+MAINTAINER Turing ML <turingml@gmail.com>
 ENV        BANNER_TEXT="" \
            S2S_PORT=""
 COPY       start_nifi.sh /${NIFI_HOME}/
