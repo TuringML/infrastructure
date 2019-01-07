@@ -18,14 +18,19 @@ Each subfolder contains a dedicated README with the installation instructions.
    - ZooKeeper
  - Druid
    - ZooKeeper
-   - MySQL
+   - EMR (AWS)
+   - MySQL (RDS)
    - S3
  - Kafka
    - ZooKeeper
  - Superset
    - MySQL
  - Redis
- - Flink / Storm / Spark / Samza
+ - Vault
+ - Grafana / Cadvisor
+ - API
+ - UI
+ - Flink
 
 With these services we thrive to have following functionalities:
 
