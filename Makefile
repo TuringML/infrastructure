@@ -1,4 +1,3 @@
-
 .PHONY: build-and-run
 build-and-run:
 	$(MAKE) build
@@ -6,7 +5,7 @@ build-and-run:
 
 .PHONY: build
 build:
-	docker build --tag turingml/terraform:0.1.0 docker/terraform/.
+	docker build --tag turingml/infra:0.1.0 docker/infra/.
 
 .PHONY: run
 run:
@@ -15,7 +14,7 @@ run:
 	-e AWS_SECRET_ACCESS_KEY=$$(aws configure get aws_secret_access_key) \
 	-e AWS_REGION=$$(aws configure get region) \
 	--mount src=$(PWD),target=/var/infrastructure,type=bind \
-	turingml/terraform:0.1.0 /bin/sh
+	turingml/infra:0.1.0 /bin/sh
 
 .PHONY: all
 all:
