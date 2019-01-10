@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+  labels:
+    run: superset
+  name: superset
+  namespace: superset
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: superset
+  template:
+    metadata:
+      labels:
+        run: superset
+    spec:
+      containers:
+      - image: turingml/superset:0.28.1
+        imagePullPolicy: Always
+        name: superset
+        ports:
+        - containerPort: 8088
+          protocol: TCP
+        stdin: true
+        env:
+          - name: SUP_META_DB_URI
+            valueFrom:
+              secretKeyRef:
+                name: superset-secret
+                key: db_url
+          - name: ADMIN_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: superset-secret
+                key: admin_username
+          - name: ADMIN_FIRST_NAME
+            valueFrom:
+              secretKeyRef:
+                name: superset-secret
+                key: admin_first_name
+          - name: ADMIN_LAST_NAME
+            valueFrom:
+              secretKeyRef:
+                name: superset-secret
+                key: admin_last_name
+          - name: ADMIN_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: superset-secret
+                key: admin_email
+          - name: ADMIN_PWD
+            valueFrom:
+              secretKeyRef:
+                name: superset-secret
+                key: admin_password
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi    
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
