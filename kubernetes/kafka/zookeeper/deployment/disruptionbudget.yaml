@@ -1,0 +1,12 @@
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app: zookeeper
+  name: zookeeper
+  namespace: kafka
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: zookeeper
