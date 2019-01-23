@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  vars:
+    namespace: nifi
+    state: present
+    grafana_url: "not-set"
+  tasks:
+    # Create namspace if state is present
+    - name: "Create ns {{ namespace }}"
+      command: "kubectl create ns {{ namespace }}"
+      when: state == "present"
+    # Import ZooKeeper task
+    - name: "Run zookeeper tasks"
+      import_tasks: "zookeeper/tasks.yaml"
+    # Import NiFi task
+    - name: "Run nifi tasks"
+      import_tasks: "nifi/tasks.yaml"
+    # Managing Grafana and prometheus
+    - name: "Handling monitoring for {{ namespace }}"
+      import_tasks: "monitoring/grafana-tasks.yaml"
+    - name: "Handling monitoring for {{ namespace }}"
+      import_tasks: "monitoring/prometheus-tasks.yaml"
+    # Delete namspace if state is absent
+    - name: "Delete ns {{ namespace }}"
+      command: "kubectl delete ns {{ namespace }}"
+      when: state == "absent"

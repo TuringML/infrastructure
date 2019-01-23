@@ -1,0 +1,18 @@
+{
+	"revision": {
+		"version": 1
+	},
+	"component": {
+    "id": "{{ rep_task.json.id }}",
+		"name": "PrometheusReportingTask",
+		"schedulingStrategy": "TIMER_DRIVEN",
+		"schedulingPeriod": "1 min",
+		"comments": "Automatically created by Ansible",
+		"state": "RUNNING",
+		"properties": {
+			"Prometheus PushGateway": "http://prometheus-pushgateway.prometheus:9091",
+			"Send JVM-metrics": "true"
+		}
+	},
+	"disconnectedNodeAcknowledged": false
+}

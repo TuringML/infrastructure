@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars:
+    namespace: nifi
+    state: present
+    grafana_url: "not-set"
+  tasks:
+    - import_tasks: "tasks.yaml"

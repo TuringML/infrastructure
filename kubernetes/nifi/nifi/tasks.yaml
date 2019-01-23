@@ -1,0 +1,29 @@
+- name: "Create ingress {{ namespace }}"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/ingress.yaml') | from_yaml }}"
+- name: "Create service {{ namespace }}"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/service.yaml') | from_yaml }}"
+- name: "Create statefulset {{ namespace }}"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/statefulset.yaml') | from_yaml }}"
+# TODO: Only for present / creation, not for absent / teardown. Needs splitting
+- name: "Expose service in order to install Reporting controller"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/service-http.yaml') | from_yaml }}"
+- name: Check if service has endpoint
+  shell: kubectl get svc nifi-http -n {{ namespace }} | awk 'NR>1{ print $4 }'
+  register: result
+  until: result.stdout != "<pending>"
+  retries: 120
+  delay: 1
+- debug:
+    msg: "{{ result.stdout }}"

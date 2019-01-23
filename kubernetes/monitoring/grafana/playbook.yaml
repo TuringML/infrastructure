@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars:
+    namespace: grafana
+    state: present
+  tasks:
+    - include_tasks: tasks-teardown.yaml
+      when: state == "absent"
+    - include_tasks: tasks-setup.yaml
+      when: state == "present"

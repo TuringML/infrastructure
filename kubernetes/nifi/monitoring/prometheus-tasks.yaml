@@ -1,0 +1,39 @@
+- name: Gather endpoint NiFi
+  shell: kubectl get svc nifi-http -n nifi | awk 'NR>1{ print $4}'
+  register: result
+  until: result.stdout != "<pending>"
+  retries: 120
+  delay: 1
+- debug:
+    msg: "{{ result.stdout }}"
+- name: Wait for API to be healthy
+  uri:
+    url: "http://{{ result.stdout }}:8080/nifi-api/system-diagnostics"
+  retries: 200
+  delay: 2
+  register: http_output
+  until: http_output.status == 200
+  changed_when: false
+# Process for all API calls to install NiFi ReportingTask
+- name: Add Prometheus reporting task
+  uri:
+    url: http://{{ result.stdout }}:8080/nifi-api/controller/reporting-tasks
+    method: POST
+    body: "{{ lookup('file', './prometheus/1-get-id-reporting-task.json') }}"
+    body_format: json
+    status_code: 201
+  register: rep_task
+  until: rep_task.status == 201
+  retries: 3
+  delay: 2
+- name: Configure Prometheus reporting task
+  uri:
+    url: http://{{ result.stdout }}:8080/nifi-api/reporting-tasks/{{ rep_task.json.id }}
+    method: PUT
+    body: "{{ lookup('template', './prometheus/2-create-reporting-task.json') }}"
+    body_format: json
+    status_code: 200
+  register: rep_task_updated
+  until: rep_task_updated.status == 200
+  retries: 3
+  delay: 2

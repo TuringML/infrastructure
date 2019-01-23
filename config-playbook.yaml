@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks:
+    # Run `init
+    - name: Init config for localhost
+      command: make config

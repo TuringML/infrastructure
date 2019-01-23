@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  vars:
+    state: present
+  tasks:
+    # Import heapster task
+    - name: "Run heapster tasks"
+      import_tasks: "tasks.yaml"

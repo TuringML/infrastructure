@@ -1,0 +1,41 @@
+- name: Create namespace Grafana
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/ns.yaml') | from_yaml }}"
+- name: Create helm install grafana
+  shell: "helm install -f ./deployment/values.yaml stable/grafana --name grafana --namespace grafana"
+- name: Check if service has endpoint
+  shell: kubectl get svc -n grafana | awk 'NR>1{ print $4 }'
+  register: result
+  until: result.stdout != "<pending>"
+  retries: 120
+  delay: 1
+- debug:
+    msg: "{{ result.stdout }}"
+- name: Wait for API to be healthy
+  uri:
+    url: "http://{{ result.stdout }}/api/health"
+  retries: 140
+  delay: 2
+  register: http_output
+  until: http_output.status == 200
+  changed_when: false
+# Create key token via API
+# TODO: Key should be stored at a Vault or 1Password?
+- name: Create access key for current user
+  uri:
+    user: admin
+    password: "BananaSplit69!"
+    force_basic_auth: yes
+    status_code: 200
+    body_format: json
+    url: "http://{{ result.stdout }}/api/auth/keys"
+    method: POST
+    body: "{\"name\":\"admin\",\"role\":\"Admin\"}"
+  register: credentials
+# TODO: Changing this part for actual secret management
+- debug:
+    msg: "{{ credentials.json.key }}"
+- copy:
+    content: "{{ credentials.json.key }}"
+    dest: "./../../../tmp_credentials/grafana_key.txt"

@@ -12,7 +12,9 @@ module "vpc" {
   enable_vpn_gateway = true
 
   tags = {
-    Terraform   = "true"
-    Environment = "${terraform.workspace}-vpc"
+    KubernetesCluster                 = "${terraform.workspace}-eks-cluster"
+    "kubernetes.io/role/internal-elb" = ""
+    Terraform                         = "true"
+    Environment                       = "${terraform.workspace}-vpc"
   }
 }

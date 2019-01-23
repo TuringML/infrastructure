@@ -29,8 +29,8 @@ Each subfolder contains a dedicated README with the installation instructions.
    - MySQL
  - Redis
  - Heapster
- - Vault
  - Grafana / Cadvisor
+ - Vault
  - API
  - UI
  - Flink

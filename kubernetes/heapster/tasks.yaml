@@ -1,0 +1,14 @@
+# - name: Create helm install heapster
+#   shell: "helm install --name heapster -f deployment/values.yaml stable/heapster"
+#   when: state == "present"
+- name: "Create rbac"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/rbac.yaml') | from_yaml }}"
+- name: "Create cr"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/cr.yaml') | from_yaml }}"
+- name: Delete helm heapster
+  shell: "helm delete heapster --purge"
+  when: state == "absent"
