@@ -1,3 +1,4 @@
+- import_playbook: password-playbook.yaml
 - import_playbook: terraform/playbook.yaml
 # - import_playbook: config-playbook.yaml
 # - import_playbook: kubernetes/haepster/playbook.yaml
