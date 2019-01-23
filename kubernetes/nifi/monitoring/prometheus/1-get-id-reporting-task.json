@@ -1,0 +1,14 @@
+{
+  "revision": {
+    "version": 0
+  },
+  "disconnectedNodeAcknowledged": false,
+  "component": {
+    "type": "org.apache.nifi.reporting.prometheus.PrometheusReportingTask",
+    "bundle": {
+      "group": "org.apache.nifi",
+      "artifact": "nifi-prometheus-nar",
+      "version": "1.8.0"
+    }
+  }
+}

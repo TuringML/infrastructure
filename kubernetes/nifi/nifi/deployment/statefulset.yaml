@@ -1,8 +1,7 @@
-apiVersion: apps/v1beta1
+apiVersion: v1beta1
 kind: StatefulSet
 metadata:
   name: nifi
-  namespace: nifi
 spec:
   serviceName: nifi
   replicas: 3
@@ -26,11 +25,15 @@ spec:
       #         topologyKey: "kubernetes.io/hostname"
       dnsConfig:
         searches:
-          - nifi.nifi.svc.cluster.local
+          - "nifi.nifi.svc.cluster.local"
       containers:
       - name: nifi
         imagePullPolicy: Always
         image: "turingml/nifi:1.8.0"
+        resources:
+          requests:
+            memory: 512m
+            cpu: "0.2"
         ports:
           - containerPort: 8080
           - containerPort: 8081
@@ -42,9 +45,9 @@ spec:
         - name: ELECTION_TIME
           value: "3 mins"
         - name: ZK_NODES_LIST
-          value: "zk-0.zk-hs.nifi-zk.svc.cluster.local,zk-1.zk-hs.nifi-zk.svc.cluster.local,zk-2.zk-hs.nifi-zk.svc.cluster.local"
+          value: "zk-0.zk-hs.nifi.svc.cluster.local,zk-1.zk-hs.nifi.svc.cluster.local,zk-2.zk-hs.nifi.svc.cluster.local"
         - name: ZK_CONNECT_STRING
-          value: "zk-0.zk-hs.nifi-zk.svc.cluster.local,zk-1.zk-hs.nifi-zk.svc.cluster.local,zk-2.zk-hs.nifi-zk.svc.cluster.local"
+          value: "zk-0.zk-hs.nifi.svc.cluster.local,zk-1.zk-hs.nifi.svc.cluster.local,zk-2.zk-hs.nifi.svc.cluster.local"
         volumeMounts:
           - name: "data"
             mountPath: /opt/nifi/data

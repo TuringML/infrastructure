@@ -16,3 +16,7 @@ delete:
 .PHONY: clean
 clean:
 	exec ./clean.sh
+
+# Adding monitoring dashboard:
+dashboard:
+	exec ansible-playbook grafana-dashboard.yaml -e grafana_url=http://$(kubectl get svc -n grafana | awk 'NR >1 { print $4 }')

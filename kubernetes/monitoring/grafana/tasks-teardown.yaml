@@ -1,0 +1,6 @@
+- name: Delete helm grafana
+  shell: "helm delete grafana --purge"
+- name: Delete namespace Grafana
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/ns.yaml') | from_yaml }}"

@@ -1,0 +1,20 @@
+- name: "Create poddisruptionbudget {{ namespace }} zookeeper"
+  k8s:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/poddisruptionbudget.yaml') | from_yaml }}"
+- name: "Create service hs {{ namespace }} zookeeper"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/service-hs.yaml') | from_yaml }}"
+- name: "Create service cs {{ namespace }} zookeeper"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/service-cs.yaml') | from_yaml }}"
+- name: "Create statefulset {{ namespace }} zookeeper"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/statefulset.yaml') | from_yaml }}"

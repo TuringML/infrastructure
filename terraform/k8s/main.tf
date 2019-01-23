@@ -1,5 +1,3 @@
-variable "aws_region" {}
-
 module "kubernetes" {
   source = "scholzj/kubernetes/aws"
 
@@ -11,9 +9,9 @@ module "kubernetes" {
   max_worker_count     = 6
   hosted_zone          = "my-domain.com"
 
-  master_subnet_id = "${data.terraform_remote_state.network.public_subnet_id}"
+  master_subnet_id = "${var.private_subnet_id}"
 
-  worker_subnet_ids = ["${data.terraform_remote_state.network.public_subnets}"]
+  worker_subnet_ids = ["${var.private_subnets}"]
 
   # Tags
   tags = {

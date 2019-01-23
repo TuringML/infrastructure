@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  vars:
+    namespace: nifi
+    state: present
+  tasks:
+    - import_tasks: "tasks.yaml"
