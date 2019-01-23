@@ -7,7 +7,35 @@ create customisable pipelines for data engineering, data scientist and business
 intelligence.
 
 ## Repo purpose
-This repo should contain a single click deployment with all settings needed for
+This repo should contain a single click deployment with all settings needed for all applications we need in Turing.
+
+## Usage
+In order to run the application, first you need to have the image which allows you to run all commands without dependencies.
+
+Prerequisites:
+- [1password](http://1password.com)
+- [Docker](https://www.docker.com/)
+- [AWS](https://aws.amazon.com/)
+- [AWS cli](https://aws.amazon.com/cli/)
+
+1. Clone repository
+2. Start your docker environment:
+`$ make build` or `$ make pull` will get the container needed in order to run manage the infrastructure.
+`$ make run` will run the application. Here it's important to set following environmental variables:
+- ONE_PASSWORD_SECRET_KEY
+- ONE_PASSWORD_PASSWORD
+- ONE_PASSWORD_USER
+- CLIENT_ID
+The CLIENT_ID is representative for the name of the client and will be used throughout the whole setup.
+
+Example:
+`ONE_PASSWORD_SECRET_KEY=AA-AAAAA-AAAAA-AAAAA-AAAAA-AAAAA-AAAAA ONE_PASSWORD_PASSWORD=password ONE_PASSWORD_USER=some@gmail.com CLIENT_ID=client_name make run`
+
+3. Create / update infrastructure
+`$ ansible-playbook playbook.yaml` will spin up the whole infrastructure or updates it accordingly.
+
+4. Delete infrastructure
+`$ ansible-playbook playbook.yaml -e state=absent` will remove the whole infrastructure.
 
 ## Prerequisites
 
