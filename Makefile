@@ -49,7 +49,7 @@ run:
 	-e CLIENT_ID=${CLIENT_ID} \
 	-p 8001:8001 \
 	--mount src=$(PWD),target=/var/infrastructure,type=bind \
-	${ORG}/${REPO}:${VERSION} /bin/sh
+	${ORG}/${REPO}:${VERSION} /bin/sh --login
 
 .PHONY: all
 all:
