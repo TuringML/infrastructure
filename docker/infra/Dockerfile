@@ -80,5 +80,7 @@ gpg --verify op.sig op && \
 mv op /usr/local/bin/ && \
 rm op.zip op.sig
 
+COPY source.sh /etc/profile.d/
+
 # Set workdir to infrastructure directory
 WORKDIR /var/infrastructure
