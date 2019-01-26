@@ -10,6 +10,10 @@ config:
 	kubectl apply -f tiller.yaml
 	helm init --upgrade --service-account tiller
 
+.PHONY: get-secrets
+get-secrets:
+	kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+
 .PHONY: proxy
 proxy:
 	kubectl proxy --address='0.0.0.0' --port=8001 --accept-hosts='.*'

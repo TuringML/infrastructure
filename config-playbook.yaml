@@ -4,3 +4,6 @@
     # Run `init
     - name: Init config for localhost
       command: make config
+      register: result
+    - debug:
+        msg: "{{ result.stdout_lines }}"
