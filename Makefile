@@ -52,6 +52,7 @@ run:
 	-e ONE_PASSWORD_USER=${ONE_PASSWORD_USER} \
 	-e CLIENT_ID=${CLIENT_ID} \
 	-p 8001:8001 \
+	-p 8200:8200 \
 	--mount src=$(PWD),target=/var/infrastructure,type=bind \
 	${ORG}/${REPO}:${VERSION} /bin/sh --login
 
