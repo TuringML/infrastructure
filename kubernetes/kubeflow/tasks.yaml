@@ -1,0 +1,17 @@
+- name: "Init kubeflow"
+  shell: "ks init kubeflow"
+- name: "Add kubeflow registry"
+  shell: "ks registry add kubeflow github.com/kubeflow/kubeflow/tree/{{ kubeflow_version }}/kubeflow --dir {{ namespace }}"
+- name: "Install packages"
+  shell: |
+      ks pkg install kubeflow/argo@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/core@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/examples@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/katib@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/mpi-job@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/pytorch-job@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/seldon@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks pkg install kubeflow/tf-serving@{{ kubeflow_version }} --dir {{ namespace }} 
+      ks generate kubeflow-core kubeflow-core --dir {{ namespace }} 
+      ks env  set default --namespace {{ namespace }} --dir {{ namespace }} 
+      ks apply default --dir {{ namespace }}
