@@ -1,0 +1,51 @@
+apiVersion: 0.3.0
+environments:
+  default:
+    destination:
+      namespace: kubeflow
+      server: https://C7AD44AC77CB292B3A35A48BFFC31038.sk1.eu-west-1.eks.amazonaws.com
+    k8sVersion: v1.11.5
+    path: default
+kind: ksonnet.io/app
+libraries:
+  kubeflow/argo:
+    name: argo
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/core:
+    name: core
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/examples:
+    name: examples
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/katib:
+    name: katib
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/mpi-job:
+    name: mpi-job
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/pytorch-job:
+    name: pytorch-job
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/seldon:
+    name: seldon
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+  kubeflow/tf-serving:
+    name: tf-serving
+    registry: kubeflow
+    version: a4486ccdb5e02d8aaa7c3a229da3ed49febd677e
+name: kubeflow
+registries:
+  incubator:
+    protocol: github
+    uri: github.com/ksonnet/parts/tree/master/incubator
+  kubeflow:
+    protocol: github
+    uri: github.com/kubeflow/kubeflow/tree/v0.2.5/kubeflow
+version: 0.0.1
