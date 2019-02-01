@@ -13,5 +13,5 @@
       ks pkg install kubeflow/seldon@{{ kubeflow_version }} --dir {{ namespace }} 
       ks pkg install kubeflow/tf-serving@{{ kubeflow_version }} --dir {{ namespace }} 
       ks generate kubeflow-core kubeflow-core --dir {{ namespace }} 
-      ks env  set default --namespace {{ namespace }} --dir {{ namespace }} 
+      ks env set default --namespace {{ namespace }} --dir {{ namespace }} 
       ks apply default --dir {{ namespace }}
