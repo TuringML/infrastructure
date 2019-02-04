@@ -4,3 +4,9 @@
   k8s_raw:
     state: "{{ state }}"
     definition: "{{ lookup('template', './deployment/ns.yaml') | from_yaml }}"
+- name: Delete Grafana key from 1password
+  shell: op delete item grafana-key
+  ignore_errors: true
+- name: Delete Grafana credentials from 1password
+  shell: op delete item grafana
+  ignore_errors: true

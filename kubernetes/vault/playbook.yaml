@@ -1,0 +1,51 @@
+---
+- hosts: localhost
+  environment:
+    RHOME:
+  vars:
+    namespace: vault
+    state: present
+  tasks:
+    - name: Source file
+      shell: . /etc/profile
+    - name: Get vault pod
+      shell: kubectl get pods --namespace vault -l app=vault -o jsonpath={.items[0].metadata.name}
+      register: vault_pod
+    - lineinfile:
+        path: /var/infrastructure/vault.yaml
+        regexp: '^VAULT_POD: '
+        line: "VAULT_POD: {{ vault_pod.stdout }}"
+    - name: Get password
+      shell: kubectl logs {{ vault_pod.stdout }} -n vault | grep 'Root Token' | cut -d' ' -f3
+      register: vault_token
+    - lineinfile:
+        path: /var/infrastructure/vault.yaml
+        regexp: '^VAULT_TOKEN: '
+        line: "VAULT_TOKEN: {{ vault_token.stdout }}"
+    - name: Include vars of vault.yaml into the 'vault' variable
+      include_vars:
+        file: /var/infrastructure/vault.yaml
+        name: vault_settings
+      register: vault_settings
+    - debug:
+        msg: "{{ vault_settings }}"
+    - name: Port forward vault
+      shell: kubectl port-forward {{ vault_pod.stdout }} 8200 &
+    - name: Login Vault
+      shell: echo {{ vault_token.stdout }} | vault login -
+    - name: Vault status
+      shell: vault status
+      register: status_vault
+    - debug:
+        msg: "{{ status_vault }}"
+    # - name: Create namespace {{ namespace }}
+    #   k8s_raw:
+    #     state: "{{ state }}"
+    #     definition: "{{ lookup('template', './deployment/ns.yaml') | from_yaml }}"
+    # - name: Create Consul
+    #   shell: helm install --name consul stable/consul --set Replicas=3
+    # - name: Install repo incubator
+    #   shell: helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator
+    #   # TODO: Credentials removal!!
+    # - name: Install Postgres
+    #   shell: helm install stable/postgresql --set postgresUser=root,postgresPassword=root,postgresDatabase=rails_development

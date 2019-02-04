@@ -42,9 +42,13 @@
     method: POST
     body: "{\"name\":\"admin\",\"role\":\"Admin\"}"
   register: credentials
-# TODO: Changing this part for actual secret management
 - debug:
     msg: "{{ credentials.json.key }}"
-- copy:
-    content: "{{ credentials.json.key }}"
-    dest: "./../../../tmp_credentials/grafana_key.txt"
+- name: Create login template
+  shell: echo {{ lookup('template', '/var/infrastructure/templates/one_password/create_login.json', convert_data=False) | to_json }} | op encode
+  register: key_template_login
+  vars:
+    username: "grafana-key"
+    password: "{{ credentials.json.key }}"
+- name: Store credentials grafana in vault
+  shell: op create item login {{ key_template_login.stdout }} --title=grafana-key --url=http://{{ result.stdout }} --vault={{ lookup('env', 'CLIENT_ID') }}
