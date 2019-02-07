@@ -1,8 +1,0 @@
----
-- hosts: localhost
-  vars:
-    state: present
-  tasks:
-    # Import dashboard task
-    - name: "Run kubernetes dashboard tasks"
-      import_tasks: "tasks.yaml"
