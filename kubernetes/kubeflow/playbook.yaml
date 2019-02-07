@@ -3,12 +3,11 @@
   vars:
     namespace: kubeflow
     state: present
-    kubeflow_version: v0.4.0
   tasks:
     # Create namspace if state is present
-    # - name: "Create ns {{ namespace }}"
-    #   command: "kubectl create ns {{ namespace }}"
-    #   when: state == "present"
+    - name: "Create ns {{ namespace }}"
+      command: "kubectl create ns {{ namespace }}"
+      when: state == "present"
      # Import Kubeflow task
     - name: "Run Kubeflow tasks"
       import_tasks: "./tasks.yaml"

@@ -1,38 +1,4 @@
-kubectl create ns kubeflow
-ks init kubeflow && \
-cd kubeflow && \
-ks registry add kubeflow github.com/kubeflow/kubeflow/tree/v0.4.1/kubeflow  && \
-
-ks pkg install kubeflow/common@v0.4.1  && \
-ks pkg install kubeflow/argo@v0.4.1  && \
-ks pkg install kubeflow/jupyter@v0.4.1  && \
-ks pkg install kubeflow/seldon@v0.4.1  && \
-ks pkg install kubeflow/tf-serving@v0.4.1  && \
-ks pkg install kubeflow/tensorboard@v0.4.1  && \
-ks pkg install kubeflow/tf-training@v0.4.1  && \
-ks pkg install kubeflow/application@v0.4.1  && \
-ks pkg install kubeflow/metacontroller@v0.4.1  && \
-ks pkg install kubeflow/pipeline@v0.4.1  && \
-
-ks generate ambassador ambassador  && \
-ks generate argo argo  && \
-ks generate jupyter jupyter  && \
-ks generate centraldashboard centraldashboard  && \
-ks generate tf-job-operator tf-job-operator  && \
-ks generate tensorboard-aws tensorboard  && \
-ks generate notebooks notebooks  && \
-ks generate metacontroller metacontroller  && \
-ks generate pipeline pipeline && \
-ks generate application application   && \
-ks env set default --namespace kubeflow  && \
-ks param set application components ambassador  && \
-ks param set application components metacontroller && \
-ks param set application components jupyter  && \
-ks param set application components argo  && \
-ks param set application components notebooks  && \
-ks param set application components pipeline  && \
-ks param set application components centraldashboard  && \
-ks param set application components tf-job-operator  && \
-ks param set application name kubeflow  && \
-
-ks show default > ../deployment.yaml
+- name: "Create Kubeflow in K8S"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/deployment.yaml') | from_yaml }}"
