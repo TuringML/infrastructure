@@ -10,6 +10,16 @@ config:
 	kubectl apply -f tiller.yaml
 	helm init --upgrade --service-account tiller
 
+.PHONY: eksctl-create
+eksctl-create:
+	eksctl create cluster --name=cluster-1 --nodes=2 --nodes-min=2 --nodes-max=3 --node-type=c5.xlarge --region=eu-west-1 --tags environment=staging
+
+.PHONY: delete-istio
+delete-istio:
+	helm delete istio --purge \
+	kubectl delete ns istio-system \
+	kubectl delete -f install/kubernetes/helm/istio/templates/crds.yaml -n istio-system
+
 .PHONY: get-secrets
 get-secrets:
 	kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
