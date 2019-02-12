@@ -1,14 +1,14 @@
 ---
 - hosts: localhost
   vars:
-    namespace: kubeflow
+    namespace: flink
     state: present
   tasks:
     # Create namspace if state is present
     - name: "Create ns {{ namespace }}"
       command: "kubectl create ns {{ namespace }}"
       when: state == "present"
-     # Import Kubeflow task
+     # Import Flink task
     - name: "Run Kubeflow tasks"
       import_tasks: "./tasks.yaml"
       when: state == "present"
