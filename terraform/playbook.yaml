@@ -3,19 +3,15 @@
   vars:
     state: present
   tasks:
-    - name: Check if workspace is selected
-      shell: terraform workspace list | grep "*" | awk '{ print $2 }'
-      register: result
-    - debug:
-        msg: "{{ result.stdout }}"
-    - name: Create workspace if not exists
-      shell: "terraform workspace new ${CLIENT_ID}"
-      when: "result.stdout != lookup('env','CLIENT_ID')"
+    - name: Init terraform
+      shell: terraform init
+    - name: Create workspace if not exists else select it
+      shell: "terraform workspace select {{ lookup('env','CLIENT_ID') }} || terraform workspace new {{ lookup('env','CLIENT_ID') }}"
     - terraform:
         project_path: "/var/infrastructure/terraform"
         state: "{{ state }}"
         force_init: yes
-        workspace: "{{ result.stdout }}"
+        workspace: "{{ lookup('env','CLIENT_ID') }}"
       register: tf_run
     - debug:
         var: tf_run
