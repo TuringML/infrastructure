@@ -1,0 +1,23 @@
+- name: "Create CRD"
+  shell: "kubectl apply -f ./deployment/crd.yaml"
+
+- name: "Create Backup Location"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/backup-location.yaml') | from_yaml }}"
+
+- name: "Create Volumes snapshots"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/volumes-snapshots.yaml') | from_yaml }}"
+
+- name: "Create Secret"
+  shell: "kubectl apply -f ./deployment/cloud-secrets.yaml"
+
+- name: "Create Deployment"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/deployment.yaml') | from_yaml }}"

@@ -47,6 +47,8 @@ run:
 	-e ONE_PASSWORD_PASSWORD=${ONE_PASSWORD_PASSWORD} \
 	-e ONE_PASSWORD_USER=${ONE_PASSWORD_USER} \
 	-e CLIENT_ID=${CLIENT_ID} \
+	-e BACKUP_BUCKET=${BACKUP_BUCKET} \
+	-e AWS_REGION=${AWS_REGION} \
 	-p 8001:8001 \
 	--mount src=$(PWD),target=/var/infrastructure,type=bind \
 	${ORG}/${REPO}:${VERSION} /bin/sh --login

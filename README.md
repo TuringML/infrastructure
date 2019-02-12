@@ -26,6 +26,8 @@ Prerequisites:
 - ONE_PASSWORD_PASSWORD
 - ONE_PASSWORD_USER
 - CLIENT_ID
+- BACKUP_BUCKET for heptio velero
+- AWS_REGION aws region where the backup bucket will live
 
 The CLIENT_ID is representative for the name of the client and will be used throughout the whole setup.
 
