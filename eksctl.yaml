@@ -1,0 +1,24 @@
+---
+apiVersion: eksctl.io/v1alpha4
+kind: ClusterConfig
+
+metadata:
+  name: cluster-1
+  region: eu-west-1
+
+nodeGroups:
+  - name: ng-1
+    labels:
+      role: workers
+      autoscaling: enabled
+      purpose: ci-worker
+    instanceType: c5.xlarge
+    desiredCapacity: 2
+    minSize: 2
+    maxSize: 4
+    allowSSH: true
+    sshPublicKeyPath: "~/.ssh/id_rsa.pub"
+    tags:
+      environment: staging
+    asgAccess: true
+    fullEcrAccess: true
