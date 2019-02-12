@@ -1,0 +1,4 @@
+- name: "Create Kubeflow in K8S"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/deployment.yaml') | from_yaml }}"
