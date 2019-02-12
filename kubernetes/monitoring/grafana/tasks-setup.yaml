@@ -1,6 +1,8 @@
 - name: Generate new password for grafana
   shell: date +%s | sha256sum | base64 | head -c 32 ; echo
   register: grafana_password
+- debug:
+    msg: "{{ grafana_password }}"
 - name: Create namespace Grafana
   k8s_raw:
     state: "{{ state }}"
