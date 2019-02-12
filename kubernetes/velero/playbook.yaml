@@ -9,13 +9,13 @@
     region: ${AWS_REGION}
     clustername: ${CLIENT_ID}-eks-cluster
   tasks:
-    # - name: Create S3 bucket
-    #   command: "aws s3api create-bucket --bucket {{ bucket }} --region {{ region }} --create-bucket-configuration LocationConstraint={{ region }}"
-    #   when: state == "present"
+    - name: Create S3 bucket
+      command: "aws s3api create-bucket --bucket {{ bucket }} --region {{ region }} --create-bucket-configuration LocationConstraint={{ region }}"
+      when: state == "present"
     # Create namspace if state is present
-    # - name: "Create ns {{ namespace }}"
-    #   command: "kubectl create ns {{ namespace }}"
-    #   when: state == "present"
+    - name: "Create ns {{ namespace }}"
+      command: "kubectl create ns {{ namespace }}"
+      when: state == "present"
     # Import Velero tasks
     - name: "Run Velero tasks"
       import_tasks: "./tasks.yaml"

@@ -21,3 +21,9 @@
     state: "{{ state }}"
     namespace: "{{ namespace }}"
     definition: "{{ lookup('template', './deployment/deployment.yaml') | from_yaml }}"
+
+- name: "Create Daemonset"
+  k8s_raw:
+    state: "{{ state }}"
+    namespace: "{{ namespace }}"
+    definition: "{{ lookup('template', './deployment/daemonset.yaml') | from_yaml }}"
