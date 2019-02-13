@@ -16,6 +16,3 @@
     - name: "Delete ns {{ namespace }}"
       command: "kubectl delete ns {{ namespace }}"
       when: state == "absent"
-    - name: "Delete ksonnet application"
-      command: "ks delete default -- dir {{ namespace }}"
-      when: state == "absent"
