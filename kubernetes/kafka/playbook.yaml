@@ -12,6 +12,9 @@
     - name: "Run Kafka tasks"
       import_tasks: "./tasks.yaml"
       when: state == "present"
+    - name: "Handling monitoring for {{ namespace }}"
+      import_tasks: "monitoring/grafana-tasks.yaml"
+      when: state == "present"
      # Delete namspace if state is absent
     - name: "Delete ns {{ namespace }}"
       command: "kubectl delete ns {{ namespace }}"
