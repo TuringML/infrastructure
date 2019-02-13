@@ -2,6 +2,7 @@ apiVersion: kafka.strimzi.io/v1alpha1
 kind: KafkaConnect
 metadata:
   name: kafka-connect-cluster
+  namespace: kafka
 spec:
   version: 2.1.0
   replicas: 1
