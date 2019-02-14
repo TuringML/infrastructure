@@ -1,0 +1,15 @@
+- name: "Create namespaces"
+  command: "kubectl apply -f deployment/ns.yaml"
+- name: "Add OpenFaaS Helm Chart repository"
+  command: "helm repo add openfaas https://openfaas.github.io/faas-netes/"
+- name: "Update helm repos"
+  command: "helm repo update"
+- name: "Create Administrator password"
+  command: openssl rand -base64 12
+  register: adminPassword
+- debug:
+    msg: "{{ adminPassword.stdout }}"
+- name: "Create OpenFaaS secret"  
+  command: "kubectl -n openfaas create secret generic basic-auth --from-literal=basic-auth-user=admin --from-literal=basic-auth-password={{ adminPassword.stdout }}"
+- name: "Install OpenFaaS on kubernetes"
+  command: "helm upgrade openfaas --install openfaas/openfaas --namespace openfaas --set basic_auth=true --set functionNamespace=openfaas-fn --set serviceType=LoadBalancer"

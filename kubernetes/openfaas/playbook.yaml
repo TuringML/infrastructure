@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  vars:
+    state: present
+  tasks:
+    # Import OpenFaaS tasks
+    - name: "Run openfaas tasks"
+      import_tasks: "./tasks.yaml"
+    # Delete OpenFaaS
+    - name: "Remove OpenFaaS Helm"
+      command: "helm del openfaas --purge"
+      when: state == "absent"
+    - name: "Delete namespaces"
+      command: "kubectl delete -f deployment/ns.yaml"
+      when: state == "absent"
