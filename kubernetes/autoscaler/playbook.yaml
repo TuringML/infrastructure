@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  vars:
+    clustername: ${CLIENT_ID}-eks-cluster  
+    region: ${AWS_REGION}
+    state: present
+  tasks:
+    # Import heapster task
+    - name: "Run heapster tasks"
+      import_tasks: "tasks.yaml"
+    - name: "Delete Autoscaler"
+      command: "helm del autoscaler --purge"
+      when: state == "absent"    
