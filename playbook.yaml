@@ -5,4 +5,5 @@
 # - import_playbook: kubernetes/monitoring/playbook.yaml
 # - import_playbook: kubernetes/nifi/playbook.yaml
 # - import_playbook: kubernetes/kubeflow/playbook.yaml
-- import_playbook: kubernetes/kafka/playbook.yaml
+- import_playbook: kubernetes/flink/playbook.yaml
+# - import_playbook: kubernetes/kafka/playbook.yaml
