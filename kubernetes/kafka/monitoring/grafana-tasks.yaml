@@ -1,0 +1,22 @@
+- name: Gather endpoint Grafana
+  shell: kubectl get svc -n grafana | awk 'NR>1{ print $4 }'
+  register: result
+  until: result.stdout != "<pending>"
+  retries: 120
+  delay: 1
+- debug:
+    msg: "{{ result.stdout }}"
+# TODO: Change the credentials location to 1password or Vault or so
+- name: "Import Grafana dashboard {{ namespace }}"
+  grafana_dashboard:
+    state: "{{ state }}"
+    grafana_url: "http://{{ result.stdout }}"
+    grafana_api_key: "{{ lookup('file', '../../../tmp_credentials/grafana_key.txt') }}"
+    message: Automatically created by ansible
+    overwrite: yes
+    path: /var/infrastructure/kubernetes/kafka/monitoring/grafana-kafka-dashboard.json
+    slug: "kafka-reportingtask"
+  register: uid
+- name: Display UID
+  debug:
+    msg: "{{ uid.uid }}"
