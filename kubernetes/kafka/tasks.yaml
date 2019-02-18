@@ -1,0 +1,12 @@
+- name: "Create Kafka Operator"
+  shell: "kubectl apply -f ./deployment/operator.yaml -n kafka"
+
+- name: "Create Kafka Cluster"
+  shell: "kubectl apply -f ./deployment/cluster.yaml -n kafka"
+
+- name: "Wait for Kafka to be created"
+  wait_for: timeout=300
+  delegate_to: localhost
+
+- name: "Create Kafka Connect"
+  shell: "kubectl apply -f ./deployment/connect.yaml -n kafka"

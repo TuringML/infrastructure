@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  vars:
+    namespace: kafka
+    state: present
+    grafana_url: not-set
+  tasks:
+    - name: "Run grafana task for {{ namespace }}"
+      import_tasks: "grafana-tasks.yaml"

@@ -2,4 +2,4 @@
 
 terraform/.terraform/
 terraform/kubeconfig*
-terraform/config-map
+terraform/config-map*
