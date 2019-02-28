@@ -5,8 +5,8 @@
     region: ${AWS_REGION}
     state: present
   tasks:
-    # Import heapster task
-    - name: "Run heapster tasks"
+    # Import autoscaler task
+    - name: "Run autoscaler tasks"
       import_tasks: "tasks.yaml"
     - name: "Delete Autoscaler"
       command: "helm del autoscaler --purge"
