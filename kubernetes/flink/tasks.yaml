@@ -1,0 +1,14 @@
+- name: "Create Jobmanager deployment"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/jobmanager-deployment.yaml') | from_yaml }}"
+
+- name: "Create Jobmanager service"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/jobmanager-service.yaml') | from_yaml }}"
+
+- name: "Create Taskmanager deployment"
+  k8s_raw:
+    state: "{{ state }}"
+    definition: "{{ lookup('template', './deployment/taskmanager-deployment.yaml') | from_yaml }}"
