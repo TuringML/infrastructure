@@ -7,10 +7,10 @@
     - name: Create namespace Prometheus
       k8s_raw:
         state: "{{ state }}"
-        definition: "{{ lookup('template', './prometheus/ns.yaml') | from_yaml }}"
+        definition: "{{ lookup('template', './ns.yaml') | from_yaml }}"
       when: state == "present"
     - name: Create helm install prometheus
-      shell: "helm install -f prometheus/values.yaml stable/prometheus --name prometheus --namespace prometheus"
+      shell: "helm install -f values.yaml stable/prometheus --name prometheus --namespace prometheus"
       when: state == "present"
     - name: Delete helm prometheus
       shell: "helm delete prometheus --purge"
@@ -18,5 +18,5 @@
     - name: Delete namespace Prometheus
       k8s_raw:
         state: "{{ state }}"
-        definition: "{{ lookup('template', './prometheus/ns.yaml') | from_yaml }}"
+        definition: "{{ lookup('template', './ns.yaml') | from_yaml }}"
       when: state == "absent"
