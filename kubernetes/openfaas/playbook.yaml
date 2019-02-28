@@ -6,6 +6,7 @@
     # Import OpenFaaS tasks
     - name: "Run openfaas tasks"
       import_tasks: "./tasks.yaml"
+      when: state == "present"
     # Delete OpenFaaS
     - name: "Remove OpenFaaS Helm"
       command: "helm del openfaas --purge"
