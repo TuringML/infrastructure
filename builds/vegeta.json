@@ -19,7 +19,7 @@
     },
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
-    "ami_name": "ubuntu with vegeta"
+    "ami_name": "ubuntu-vegeta-12_2_0"
   }],
   "provisioners": [{
     "type": "shell",

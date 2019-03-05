@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  vars:
+    namespace: kubeflow
+    state: present
+  tasks:
+    # Create namspace if state is present
+    - name: "Create ns {{ namespace }}"
+      command: "kubectl create ns {{ namespace }}"
+      when: state == "present"
+     # Import Kubeflow task
+    - name: "Run Kubeflow tasks"
+      import_tasks: "./tasks.yaml"
+      when: state == "present"
+     # Delete namspace if state is absent
+    - name: "Delete ns {{ namespace }}"
+      command: "kubectl delete ns {{ namespace }}"
+      when: state == "absent"

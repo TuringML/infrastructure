@@ -6,6 +6,8 @@ ENV AUTHENTICATOR_VERSION=1.11.5
 ENV HELM_VERSION=v2.12.1
 ENV ONE_PASSWORD_VERSION=v0.5.5
 
+ENV KSONNET_VERSION=0.13.1
+
 # Defaults with certs
 RUN set -x && \
     apk add --no-cache curl ca-certificates
@@ -54,6 +56,14 @@ RUN curl -o helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-${HE
     rm -rf linux-amd64/ && \
     chmod +x /usr/local/bin/helm && \
     helm version --client
+
+# Install Ksonnet
+RUN curl  -LJ -o ksonnet.tar.gz https://github.com/ksonnet/ksonnet/releases/download/v${KSONNET_VERSION}/ks_${KSONNET_VERSION}_linux_amd64.tar.gz && \
+    tar -xvf ksonnet.tar.gz && \
+    mv ks_${KSONNET_VERSION}_linux_amd64/ks /usr/local/bin/ks && \
+    rm -rf ks_${KSONNET_VERSION}_linux_amd64/ && \
+    chmod +x /usr/local/bin/ks && \
+    ks version
 
 # Install ansible
 RUN apk add ansible \

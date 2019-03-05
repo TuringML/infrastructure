@@ -1,1 +1,5 @@
 .DS_Store
+
+terraform/.terraform/
+terraform/kubeconfig*
+terraform/config-map*

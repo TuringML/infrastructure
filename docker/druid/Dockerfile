@@ -28,11 +28,11 @@ ENV DRUID_SEGMENTCACHE_LOCATION '-'
 ENV DRUID_DEEPSTORAGE_LOCAL_DIR '-'
 
 RUN apk update \
-&& apk add --no-cache bash curl \
-&& mkdir /tmp/druid \
-&& curl \
-http://static.druid.io/artifacts/releases/druid-$DRUID_VERSION-bin.tar.gz | tar -xzf - -C /opt \
-&& ln -s /opt/druid-$DRUID_VERSION /opt/druid
+    && apk add --no-cache bash curl \
+    && mkdir /tmp/druid \
+    && curl \
+    http://static.druid.io/artifacts/releases/druid-$DRUID_VERSION-bin.tar.gz | tar -xzf - -C /opt \
+    && ln -s /opt/druid-$DRUID_VERSION /opt/druid
 RUN curl http://static.druid.io/artifacts/releases/mysql-metadata-storage-$DRUID_VERSION.tar.gz | tar -xzf - -C /opt/druid/extensions
 
 COPY conf /opt/druid/conf
