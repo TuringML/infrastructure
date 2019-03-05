@@ -57,39 +57,12 @@ run:
 	-e AWS_ACCESS_KEY_ID=$$(aws configure get aws_access_key_id) \
 	-e AWS_SECRET_ACCESS_KEY=$$(aws configure get aws_secret_access_key) \
 	-e AWS_DEFAULT_REGION=$$(aws configure get region) \
-	-e ONE_PASSWORD_SECRET_KEY=${ONE_PASSWORD_SECRET_KEY} \
-	-e ONE_PASSWORD_PASSWORD=${ONE_PASSWORD_PASSWORD} \
-	-e ONE_PASSWORD_USER=${ONE_PASSWORD_USER} \
 	-e CLIENT_ID=${CLIENT_ID} \
 	-p 8001:8001 \
 	-p 8200:8200 \
 	--mount src=$(PWD),target=/var/infrastructure,type=bind \
-	${ORG}/${REPO}:${VERSION} /bin/sh --login
+	${ORG}/${REPO}:${VERSION} /bin/sh
 
 .PHONY: all
 all:
 	@echo create all
-
-# .PHONY: check-env
-# check-env:
-# 	$(MAKE) check-one-password-secret
-# 	$(MAKE) check-one-password-password
-# 	$(MAKE) check-one-password-user
-#
-# .PHONY: check-one-password-secret
-# check-one-password-secret:
-# ifndef ONE_PASSWORD_SECRET_KEY
-# $(error ONE_PASSWORD_SECRET_KEY is not set)
-# endif
-#
-# .PHONY: check-one-password-password
-# check-one-password-password:
-# ifndef ONE_PASSWORD_PASSWORD
-# $(error ONE_PASSWORD_PASSWORD is not set)
-# endif
-#
-# .PHONY: check-one-password-user
-# check-one-password-user:
-# ifndef ONE_PASSWORD_USER
-# $(error ONE_PASSWORD_USER is not set)
-# endif

@@ -82,15 +82,5 @@ RUN pip3 install openshift
 RUN pip install ansible
 RUN pip install --ignore-installed --upgrade ansible
 
-# Install 1password cli
-RUN curl -o op.zip https://cache.agilebits.com/dist/1P/op/pkg/${ONE_PASSWORD_VERSION}/op_linux_amd64_${ONE_PASSWORD_VERSION}.zip && \
-    unzip op.zip && \
-    gpg --receive-keys 3FEF9748469ADBE15DA7CA80AC2D62742012EA22 && \
-    gpg --verify op.sig op && \
-    mv op /usr/local/bin/ && \
-    rm op.zip op.sig
-
-COPY source.sh /etc/profile.d/
-
 # Set workdir to infrastructure directory
 WORKDIR /var/infrastructure

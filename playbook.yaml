@@ -7,8 +7,4 @@
 # - import_playbook: kubernetes/kubeflow/playbook.yaml
 - import_playbook: kubernetes/autoscaler/playbook.yaml
 # - import_playbook: kubernetes/flink/playbook.yaml
-<<<<<<< HEAD
 # - import_playbook: kubernetes/kafka/playbook.yaml
-=======
-# - import_playbook: kubernetes/kafka/playbook.yaml
->>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de

@@ -13,7 +13,6 @@ This repo should contain a single click deployment with all settings needed for 
 In order to run the application, first you need to have the image which allows you to run all commands without dependencies.
 
 Prerequisites:
-- [1password](http://1password.com)
 - [Docker](https://www.docker.com/)
 - [AWS](https://aws.amazon.com/)
 - [AWS cli](https://aws.amazon.com/cli/)
@@ -22,18 +21,7 @@ Prerequisites:
 2. Start your docker environment:
 `$ make build` or `$ make pull` will get the container needed in order to run manage the infrastructure.
 `$ make run` will run the application. Here it's important to set following environmental variables:
-- ONE_PASSWORD_SECRET_KEY
-- ONE_PASSWORD_PASSWORD
-- ONE_PASSWORD_USER
 - CLIENT_ID
-
-<<<<<<< HEAD
-NOTE: A token is created by login for 1password and expires after 30 minutes, you can reset the token after expiry by running
-`. /etc/profile`
-
-=======
->>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
-The CLIENT_ID is representative for the name of the client and will be used throughout the whole setup.
 
 Example:
 `ONE_PASSWORD_SECRET_KEY=AA-AAAAA-AAAAA-AAAAA-AAAAA-AAAAA-AAAAA ONE_PASSWORD_PASSWORD=password ONE_PASSWORD_USER=some@gmail.com CLIENT_ID=client_name make run`
