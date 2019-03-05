@@ -27,9 +27,12 @@ Prerequisites:
 - ONE_PASSWORD_USER
 - CLIENT_ID
 
+<<<<<<< HEAD
 NOTE: A token is created by login for 1password and expires after 30 minutes, you can reset the token after expiry by running
 `. /etc/profile`
 
+=======
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
 The CLIENT_ID is representative for the name of the client and will be used throughout the whole setup.
 
 Example:

@@ -4,6 +4,9 @@
     # Run `init
     - name: Init config for localhost
       command: make config
+<<<<<<< HEAD
       register: result
     - debug:
         msg: "{{ result.stdout_lines }}"
+=======
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de

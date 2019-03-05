@@ -2,6 +2,9 @@
 - hosts: localhost
   vars:
     state: present
+<<<<<<< HEAD
 - import_playbook: heapster/playbook.yaml
+=======
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
 - import_playbook: prometheus/playbook.yaml
 - import_playbook: grafana/playbook.yaml

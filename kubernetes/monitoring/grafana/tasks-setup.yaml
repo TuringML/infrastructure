@@ -1,14 +1,21 @@
+<<<<<<< HEAD
 - name: Generate new password for grafana
   shell: date +%s | sha256sum | base64 | head -c 32 ; echo
   register: grafana_password
 - debug:
     msg: "{{ grafana_password }}"
+=======
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
 - name: Create namespace Grafana
   k8s_raw:
     state: "{{ state }}"
     definition: "{{ lookup('template', './deployment/ns.yaml') | from_yaml }}"
 - name: Create helm install grafana
+<<<<<<< HEAD
   shell: "helm install -f ./deployment/values.yaml --set adminPassword={{ grafana_password.stdout }} stable/grafana --name grafana --namespace grafana"
+=======
+  shell: "helm install -f ./deployment/values.yaml stable/grafana --name grafana --namespace grafana"
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
 - name: Check if service has endpoint
   shell: kubectl get svc -n grafana | awk 'NR>1{ print $4 }'
   register: result
@@ -25,6 +32,7 @@
   register: http_output
   until: http_output.status == 200
   changed_when: false
+<<<<<<< HEAD
 - name: Create login template
   shell: echo {{ lookup('template', '/var/infrastructure/templates/one_password/create_login.json', convert_data=False) | to_json }} | op encode
   register: template_login
@@ -37,6 +45,14 @@
   uri:
     user: admin
     password: "{{ grafana_password.stdout }}"
+=======
+# Create key token via API
+# TODO: Key should be stored at a Vault or 1Password?
+- name: Create access key for current user
+  uri:
+    user: admin
+    password: "BananaSplit69!"
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
     force_basic_auth: yes
     status_code: 200
     body_format: json
@@ -44,6 +60,7 @@
     method: POST
     body: "{\"name\":\"admin\",\"role\":\"Admin\"}"
   register: credentials
+<<<<<<< HEAD
 - debug:
     msg: "{{ credentials.json.key }}"
 - name: Create login template
@@ -54,3 +71,11 @@
     password: "{{ credentials.json.key }}"
 - name: Store credentials grafana in vault
   shell: op create item login {{ key_template_login.stdout }} --title=grafana-key --url=http://{{ result.stdout }} --vault={{ lookup('env', 'CLIENT_ID') }}
+=======
+# TODO: Changing this part for actual secret management
+- debug:
+    msg: "{{ credentials.json.key }}"
+- copy:
+    content: "{{ credentials.json.key }}"
+    dest: "./../../../tmp_credentials/grafana_key.txt"
+>>>>>>> 786e36bacd51b1f389130b10241f4baf3c5851de
