@@ -24,7 +24,7 @@ Prerequisites:
 - CLIENT_ID
 
 Example:
-`ONE_PASSWORD_SECRET_KEY=AA-AAAAA-AAAAA-AAAAA-AAAAA-AAAAA-AAAAA ONE_PASSWORD_PASSWORD=password ONE_PASSWORD_USER=some@gmail.com CLIENT_ID=client_name make run`
+`CLIENT_ID=client_name make run`
 
 3. Create / update infrastructure
 `$ ansible-playbook playbook.yaml` will spin up the whole infrastructure or updates it accordingly.
